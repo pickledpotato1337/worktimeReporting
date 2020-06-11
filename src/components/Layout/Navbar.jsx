@@ -208,16 +208,8 @@ const NavBar = (props) => {
                     <Button className={classes.registerButton} variant="outlined" color="primary" component={Link} to="/reports">Codzienne spraw</Button>
                     <Button className={classes.registerButton} variant="outlined" color="primary" component={Link} to="/ticketReports">zgłoś problem</Button>
                     <div className={classes.sectionDesktop}>
-                        <IconButton aria-label="show 4 new mails" color="inherit">
-                            <Badge color="secondary">
-                                <MailIcon />
-                            </Badge>
-                        </IconButton>
-                        <IconButton aria-label="show 17 new notifications" color="inherit">
-                            <Badge  color="secondary">
-                                <NotificationsIcon />
-                            </Badge>
-                        </IconButton>
+
+
                         <IconButton
                             edge="end"
                             aria-label="account of current user"

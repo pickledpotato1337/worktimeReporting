@@ -36,7 +36,7 @@ class App extends Component {
 
                 </Switch>
               </Layout>
-              <Redirect to="/" />
+
             </BrowserRouter>
           </Switch>
         </>

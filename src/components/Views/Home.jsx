@@ -182,7 +182,6 @@ const Home =(props) => {
                             color="primary"
                             className={classes.submit}
                             disabled={props.loading}
-                            onSubmit:
 
                         >
                             Zgłoś
