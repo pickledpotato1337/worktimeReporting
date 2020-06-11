@@ -232,18 +232,7 @@ const NavBar = (props) => {
                     <Typography className={classes.title} variant="h6" noWrap>
                         {process.env.REACT_APP_NAME}
                     </Typography>
-                    <div className={classes.search}>
-                        <Autocomplete
-                            url="boards"
-                            label="Board"
-                            className={classes.boardSelect}
-                            size="small"
-                            classes={{
-                                root: classes.inputRoot,
-                                input: classes.inputInput,
-                            }}
-                        />
-                    </div>
+
                     <div className={classes.grow} />
                     {userMenu}
                 </Toolbar>
