@@ -172,18 +172,9 @@ const NavBar = (props) => {
                 <Button className={classes.registerButton} variant="outlined" color="primary" component={Link} to="/projects">Manager projektów</Button>
                 <Button className={classes.registerButton} variant="outlined" color="primary" component={Link} to="/">Zgłoszenie</Button>
                 <Button className={classes.registerButton} variant="outlined" color="primary" component={Link} to="/reports">Codzienne spraw</Button>
-                <Button className={classes.registerButton} variant="outlined" color="primary" component={Link} to="/ticketReports">zgłoś problem</Button>
+                <Button className={classes.registerButton} variant="outlined" color="primary" component={Link} to="/ticketReports">Zgłoś problem</Button>
                 <div className={classes.sectionDesktop}>
-                    <IconButton aria-label="show 4 new mails" color="inherit">
-                        <Badge color="secondary">
-                            <MailIcon />
-                        </Badge>
-                    </IconButton>
-                    <IconButton aria-label="show 17 new notifications" color="inherit">
-                        <Badge  color="secondary">
-                            <NotificationsIcon />
-                        </Badge>
-                    </IconButton>
+
                     <IconButton
                         edge="end"
                         aria-label="account of current user"
@@ -210,10 +201,47 @@ const NavBar = (props) => {
         );
     } else {
         userMenu = (
-            <>
-                <Button className={classes.registerButton} variant="outlined" color="primary" component={Link} to="/login">Login</Button>
 
-            </>
+                <>
+                    <Button className={classes.registerButton} variant="outlined" color="primary" component={Link} to="/projects">Manager projektów</Button>
+                    <Button className={classes.registerButton} variant="outlined" color="primary" component={Link} to="/">Zgłoszenie</Button>
+                    <Button className={classes.registerButton} variant="outlined" color="primary" component={Link} to="/reports">Codzienne spraw</Button>
+                    <Button className={classes.registerButton} variant="outlined" color="primary" component={Link} to="/ticketReports">zgłoś problem</Button>
+                    <div className={classes.sectionDesktop}>
+                        <IconButton aria-label="show 4 new mails" color="inherit">
+                            <Badge color="secondary">
+                                <MailIcon />
+                            </Badge>
+                        </IconButton>
+                        <IconButton aria-label="show 17 new notifications" color="inherit">
+                            <Badge  color="secondary">
+                                <NotificationsIcon />
+                            </Badge>
+                        </IconButton>
+                        <IconButton
+                            edge="end"
+                            aria-label="account of current user"
+                            aria-controls={menuId}
+                            aria-haspopup="true"
+                            onClick={handleProfileMenuOpen}
+                            color="inherit"
+                        >
+                            <AccountCircle />
+                        </IconButton>
+                    </div>
+                    <div className={classes.sectionMobile}>
+                        <IconButton
+                            aria-label="show more"
+                            aria-controls={mobileMenuId}
+                            aria-haspopup="true"
+                            onClick={handleMobileMenuOpen}
+                            color="inherit"
+                        >
+                            <MoreIcon />
+                        </IconButton>
+                    </div>
+                </>
+
         );
     }
     return (

@@ -182,7 +182,8 @@ const Home =(props) => {
                             color="primary"
                             className={classes.submit}
                             disabled={props.loading}
-                            onSubmit={submitHandler}
+                            onSubmit:
+
                         >
                             Zgłoś
                             {props.loading ? <CircularProgress color="secondary" className={classes.circularProgress} size={20} /> : null}
