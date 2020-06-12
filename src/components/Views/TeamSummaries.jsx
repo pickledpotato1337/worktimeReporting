@@ -162,7 +162,7 @@ const TeamSummaries =(props) => {
                     <ButtonBase>
                         <Button className={classes.registerButton} variant="outlined" color="primary" component={Link} to="/reports">Podsumowania</Button>
                     </ButtonBase>
-                    <form className={classes.form} onSubmit={submitHandler}>
+                    <form className={classes.form} >
                         <Typography component="h1" variant="h5">
                             Wynagrodzenie na członka zespołu
                         </Typography>
