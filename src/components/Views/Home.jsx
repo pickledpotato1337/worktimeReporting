@@ -57,6 +57,7 @@ const Home =(props) => {
     const [type, setType]=useState('');
     const [description, setDescription]= useState('');
     const [time, setTime]=useState('');
+    const [author, setAuthor]=useState('admin');
     const [reportTypes, getReportTypes]=useState('');
     const [project, getProjects] = useState('');
     const [callResponse, getResponse] = useState('');
@@ -92,7 +93,8 @@ const Home =(props) => {
     const submitHandler = (event) => {
         event.preventDefault();
         UpdateProject();
-        axios.post('http://127.0.0.1:8000/reports', {type, description, time}).then(response =>alert(console.log(response)) );
+        setAuthor('admin');
+        axios.post('http://127.0.0.1:8000/reports/', {type, description, time, author}).then(response =>alert(console.log(response)) );
 
     };
 
@@ -198,6 +200,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    onSubmit: (type, description, time) => dispatch(axios.post('http://127.0.0.1:8000/reports/', { type, description, time })),
+    onSubmit: (type, description, time, author) => dispatch(axios.post('http://127.0.0.1:8000/reports/', { type, description, time, author })),
 });
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home));
