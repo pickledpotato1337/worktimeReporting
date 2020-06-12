@@ -5,16 +5,13 @@ import {Paper} from "@material-ui/core";
 import Typography from '@material-ui/core/Typography';
 import {makeStyles} from "@material-ui/core/styles";
 import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
 import { Redirect, withRouter } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import axios from "axios";
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 
-import InputLabel from '@material-ui/core/InputLabel';
+import Autocomplete from "@material-ui/lab/Autocomplete";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -22,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
         height: '100vh',
     },
     image: {
-        backgroundImage: 'url(https://source.unsplash.com/random)',
+
         backgroundRepeat: 'no-repeat',
         backgroundColor:
             theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
@@ -51,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-
+let projects=["Realizacja", "Problemy techniczne", "Konsultacje", "Inne"];
 
 
 const Home =(props) => {
@@ -63,6 +60,9 @@ const Home =(props) => {
     const [reportTypes, getReportTypes]=useState('');
     const [project, getProjects] = useState('');
     const [callResponse, getResponse] = useState('');
+    const [selectValue, setValue] = React.useState(projects[0]);
+    const [inputValue, setInputValue] = React.useState('');
+
 
 
     const handleSetType=(event) =>{setType(event);};
@@ -71,7 +71,7 @@ const Home =(props) => {
 
 
     function UpdateProject() {
-        if (props.user) {
+
 
             axios.get('http://127.0.0.1:8000/projects/'+type)
                 .then(response => {
@@ -85,24 +85,30 @@ const Home =(props) => {
 
                     }
                 })
-                    }
+
 
             }
 
     const submitHandler = (event) => {
         event.preventDefault();
         UpdateProject();
-        axios.post('http://127.0.0.1:8000/reports', {type, description, time}).then(response =>console.log(response) );
+        axios.post('http://127.0.0.1:8000/reports', {type, description, time}).then(response =>alert(console.log(response)) );
+
     };
 
 
     function fetchReportTypes(){
         axios.get("http://127.0.0.1:8000/report_types/")
-            .then(response =>{
-                getReportTypes(response.data).
-            then(parseReportTypes(reportTypes))}
-            )
-    }
+            .then(response => {
+                getReportTypes(response.data);
+                reportTypes.map((reportType) =>{
+                    projects.push(reportType);
+                    return null;
+
+                });
+            })}
+
+
     function parseReportTypes(reportTypes){
         return reportTypes.map((reportType)=>{
             return {label: reportType.name};
@@ -112,7 +118,7 @@ const Home =(props) => {
         <Grid container component="main" className={classes.root}>
 
             <CssBaseline />
-            <Grid item xs={12} sm={8} md={8} component={Paper} elevation={5} square>
+            <Grid item xs={12} sm={8} md={10} component={Paper} elevation={5} square>
 
                 <div className={classes.paper}>
 
@@ -123,16 +129,22 @@ const Home =(props) => {
                     <form className={classes.form} onSubmit={submitHandler}>
                         <Button className={classes.button} variant="outlined" color="primary" onclick={fetchReportTypes()}
                                 >pobierz projekty</Button>
-                        <FormControl>
-                        <InputLabel htmlFor="name-native-disabled">Projekt</InputLabel>
-                        <Select
-                            native
-                            value={reportTypes}
-                            onChange={handleSetType}
-                            autoWidth
-                        >
-                        </Select>
-                        </FormControl>
+                        <Autocomplete
+                            value={selectValue}
+                            onChange={(event, newValue) => {
+                                setValue(newValue);
+                                setType(selectValue);
+                            }}
+                            inputValue={inputValue}
+                            onInputChange={(event, newInputValue) => {
+                                setInputValue(newInputValue);
+                                setType(selectValue);
+                            }}
+                            id="controllable-states"
+                            options={projects}
+                            style={{ width: 300 }}
+                            renderInput={(params) => <TextField {...params} label="Controllable" variant="outlined" />}
+                        />
                         <TextField
                             variant="outlined"
                             margin="normal"
@@ -147,20 +159,7 @@ const Home =(props) => {
                             onChange={handleSetDescription}
                             disabled={props.loading}
                         />
-                        <TextField
-                            variant="outlined"
-                            margin="normal"
-                            required
-                            fullWidth
-                            id="text"
-                            label="Awaryjne wp. projektu"
-                            name="Awaryjne wp. projektu"
 
-                            autoFocus
-                            value={type}
-                            onChange={handleSetType}
-                            disabled={props.loading}
-                        />
                         <TextField
                             variant="outlined"
                             margin="normal"
@@ -203,6 +202,6 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    onSubmit: (type, description, time) => dispatch(axios.post('http://127.0.0.1:8000/reports', { type, description, time })),
+    onSubmit: (type, description, time) => dispatch(axios.post('http://127.0.0.1:8000/reports/', { type, description, time })),
 });
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Home));

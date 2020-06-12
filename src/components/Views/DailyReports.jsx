@@ -3,24 +3,20 @@ import Grid from "@material-ui/core/Grid";
 import CssBaseline from "@material-ui/core/CssBaseline/CssBaseline";
 import {Paper} from "@material-ui/core";
 import {ButtonBase} from '@material-ui/core';
-import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/core/SvgIcon/SvgIcon";
-import Avatar from "@material-ui/core/Avatar";
 import {makeStyles} from "@material-ui/core/styles";
-import Link from '@material-ui/core/Link';
-import { Redirect, withRouter } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import axios from "axios";
 import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import Typography from "@material-ui/core/Typography";
+import {Link} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     root: {
         height: '100vh',
     },
     image: {
-        backgroundImage: 'url(https://source.unsplash.com/random)',
+
         backgroundRepeat: 'no-repeat',
         backgroundColor:
             theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
@@ -57,12 +53,12 @@ const DailyReports =(props) => {
                 .then(response => {
                     getUsers(response.data);
                     {
-                        users.map((user) => {
+                        users.map((user, i) => {
                                 hourCount = Number(0);
                                 const {id, username, email, groups} = user;
 
 
-                                return (<div className={classes.paper} key={id}>
+                                return (<div className={classes.paper} key={i}>
                                         <Typography component="h2" variant="h5">
                                             {username} {email}</Typography>
                                         {fetchReports(id)};
@@ -82,12 +78,12 @@ const DailyReports =(props) => {
     }
 
     function fetchReports(userId) {
-            let fullfilledFlag='false';
+
             axios.get('http://127.0.0.1:8000/reports/' + userId)
                 .then(response => {
                     getReports(response.data);
                     {
-                        reports.map((report) => {
+                        reports.map((report, i) => {
 
                                 const {type, description, created, time, user} = report;
                                 let creationDate = new Date(created);
@@ -96,20 +92,16 @@ const DailyReports =(props) => {
 
                                 if (creationDate.getMonth().equals(currentDate)) {
                                     hourCount += Number(time);
-                                    fullfilledFlag='true';
+
                                     return (
-                                        <div className={'post'} key={type}>
+                                        <div className={'post'} key={i}>
                                             <h2>{type}</h2>
                                             <h3>{description}</h3>
                                             <p>{time}</p>
 
                                         </div>);
                                 }
-                                else if(fullfilledFlag.equals('false')){
-                                    return(  <div className={'post'} key={type}>
-                                        <h3>Nie znaleziono raportów</h3>
-                                    </div>);
-                                }
+                                return null;
                             }
                         )
                     }
@@ -121,11 +113,20 @@ const DailyReports =(props) => {
         <Grid container component="main" className={classes.root}>
 
             <CssBaseline/>
-            <Grid item xs={12} sm={8} md={8} component={Paper} elevation={5} square>
+            <Grid item xs={12} sm={8} md={10} component={Paper} elevation={5} square>
 
                 <div className={classes.paper}>
-                    {fetchUsers()}
-                </div>
+
+                        <Typography component="h1" variant="h5">
+                            Dzienne podsumowania pracowników
+                        </Typography>
+                    <ButtonBase>
+                        <Button className={classes.registerButton} variant="outlined" color="primary" component={Link} to="/summaries">Podsumowania miesięczne</Button>
+                        <Button className={classes.registerButton} variant="outlined" color="primary" component={Link} to="/projectSummaries">Podsumowania Zespołów</Button>
+                    </ButtonBase>
+                        {fetchUsers()}
+                    </div>
+
             </Grid>
         </Grid>
 

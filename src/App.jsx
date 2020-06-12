@@ -13,6 +13,7 @@ import Home  from './components/Views/Home';
 import Login from './components/Views/Login';
 import { authCheckState } from './store/actions/index';
 import DailyReports from "./components/Views/DailyReports";
+import TeamSummaries from "./components/Views/TeamSummaries";
 
 class App extends Component {
   componentDidMount() {
@@ -33,6 +34,7 @@ class App extends Component {
                   <Route exact path="/summaries" component={withRouter(Summaries)} />
                   <Route exact path="/reports" component={withRouter(DailyReports)} />
                   <Route exact path="/tickets" component={withRouter(TicketReports)} />
+                  <Route exact path="/projectSummaries" component={withRouter(TeamSummaries)} />
 
                 </Switch>
               </Layout>

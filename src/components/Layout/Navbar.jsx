@@ -171,8 +171,8 @@ const NavBar = (props) => {
             <>
                 <Button className={classes.registerButton} variant="outlined" color="primary" component={Link} to="/projects">Manager projektów</Button>
                 <Button className={classes.registerButton} variant="outlined" color="primary" component={Link} to="/">Zgłoszenie</Button>
-                <Button className={classes.registerButton} variant="outlined" color="primary" component={Link} to="/reports">Codzienne spraw</Button>
-                <Button className={classes.registerButton} variant="outlined" color="primary" component={Link} to="/ticketReports">Zgłoś problem</Button>
+                <Button className={classes.registerButton} variant="outlined" color="primary" component={Link} to="/reports">Sprawozdania</Button>
+                <Button className={classes.registerButton} variant="outlined" color="primary" component={Link} to="/tickets">Zgłoś problem</Button>
                 <div className={classes.sectionDesktop}>
 
                     <IconButton
@@ -205,9 +205,9 @@ const NavBar = (props) => {
                 <>
                     <Button className={classes.registerButton} variant="outlined" color="primary" component={Link} to="/projects">Manager projektów</Button>
                     <Button className={classes.registerButton} variant="outlined" color="primary" component={Link} to="/">Zgłoszenie</Button>
-                    <Button className={classes.registerButton} variant="outlined" color="primary" component={Link} to="/reports">Codzienne spraw</Button>
-                    <Button className={classes.registerButton} variant="outlined" color="primary" component={Link} to="/ticketReports">zgłoś problem</Button>
                     <Button className={classes.registerButton} variant="outlined" color="primary" component={Link} to="/summaries">Podsumowania</Button>
+                    <Button className={classes.registerButton} variant="outlined" color="primary" component={Link} to="/tickets">zgłoś problem</Button>
+
                     <div className={classes.sectionDesktop}>
 
 

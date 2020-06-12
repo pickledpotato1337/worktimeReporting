@@ -2,13 +2,7 @@ import React, { useState } from 'react';
 import Grid from "@material-ui/core/Grid";
 import CssBaseline from "@material-ui/core/CssBaseline/CssBaseline";
 import {Paper} from "@material-ui/core";
-import {ButtonBase} from '@material-ui/core';
-import IconButton from "@material-ui/core/IconButton";
-import CloseIcon from "@material-ui/core/SvgIcon/SvgIcon";
-import Avatar from "@material-ui/core/Avatar";
 import {makeStyles} from "@material-ui/core/styles";
-import Link from '@material-ui/core/Link';
-import { Redirect, withRouter } from 'react-router-dom';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import axios from "axios";
 import { connect } from 'react-redux';
@@ -21,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
         height: '100vh',
     },
     image: {
-        backgroundImage: 'url(https://source.unsplash.com/random)',
+
         backgroundRepeat: 'no-repeat',
         backgroundColor:
             theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],
@@ -54,7 +48,7 @@ const TicketReports =(props) => {
     const [description, setDescription]=useState('');
     const [status, setStatus]=useState('');
     const [tickets, getTickets]=useState('');
-    function handleSetAuthor(){setAuthor(props.user);}
+    function handleSetAuthor(){setAuthor(props.user.name);}
     function handleSetStatus(){setStatus(defaultStatus);}
 
     const handleSetDescription=(event) =>{setDescription(event);};
@@ -65,14 +59,35 @@ const TicketReports =(props) => {
         axios.post('http://127.0.0.1:8000/reports',{author, description, status}).then(response =>console.log(response) );
     };
 
+    function fetchTickets(){
+        axios.get('http://127.0.0.1:8000/reports').then(
+            response => {
+                getTickets(response);
+                tickets.map((ticket, i) =>{
+                    const{created, author, description, status}=ticket;
+
+                    return(<div className={classes.paper} key={i}>
+                        <Typography component="h2" variant="h5">
+                           Autor: {author}   Data: {created}</Typography>
+                        <Typography component="h2" variant="h5">
+                           {description}</Typography>
+                        <Typography component="h2" variant="h5">
+                            Status: {status}</Typography>
+                    </div>);
+
+                });
+            }
+        )
+    }
+
     return (
         <Grid container component="main" className={classes.root}>
 
             <CssBaseline />
-            <Grid item xs={12} sm={8} md={8} component={Paper} elevation={5} square>
+            <Grid item xs={12} sm={8} md={10} component={Paper} elevation={5} square>
 
                 <div className={classes.paper}>
-
+                    <form className={classes.form} onSubmit={submitHandler}>
                     <Typography component="h1" variant="h5">
                         Zgłaszanie problemów
                     </Typography>
@@ -102,10 +117,11 @@ const TicketReports =(props) => {
                         Zgłoś
                         {props.loading ? <CircularProgress color="secondary" className={classes.circularProgress} size={20} /> : null}
                     </Button>
-
+                    </form>
                 </div>
             </Grid>
-        </Grid>);
+        </Grid>
+    );
 };
 
 const mapStateToProps = (state) => ({

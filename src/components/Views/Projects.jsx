@@ -54,17 +54,17 @@ const Projects =(props) => {
     function fetchProjects() {
 
 
-            axios.get('http://127.0.0.1:8000/projects')
+            axios.get('http://127.0.0.1:8000/projects/')
                 .then(response => {
                     getProjects(response.data);
                     {
-                        projects.map((project) => {
+                        projects.map((project, i) => {
                             const {id, name, budget, timePredicted, timeSpent} = project;
                             let timeElapsed = Number(timeSpent);
                             let moneySpent = timeElapsed * 14.00;
                             let moneyPercentile = moneySpent / 100;
                             return (
-                                <div className={classes.paper} key={id}>
+                                <div className={classes.paper} key={i}>
                                     <Typography component="h2" variant="h5">
                                         {name}</Typography>
                                     <Typography component="h3" variant="h5">
@@ -89,17 +89,18 @@ const Projects =(props) => {
     function fetchUsers(groupName)
     {
 
-            axios.get('http://127.0.0.1:8000/user')
+            axios.get('http://127.0.0.1:8000/users/')
                 .then(response => {
                     getUsers(response.data);
                     {
                         users.map((user) => {
                             const {id, username, email, groups} = user;
-                            groups.map((group)=>{
+                            groups.map((group, j)=>{
                             if(groupName.equals(group)){
-                            return( <div className={classes.paper} key={id}>
+                            return( <div className={classes.paper} key={j}>
                                 <Typography component="h2" variant="h5">
                                     {username}   {email}</Typography></div>);}
+                            return null
                             })
                             })
                         }
@@ -112,7 +113,7 @@ const Projects =(props) => {
         <Grid container component="main" className={classes.root}>
 
             <CssBaseline/>
-            <Grid item xs={12} sm={8} md={8} component={Paper} elevation={5} square>
+            <Grid item xs={12} sm={8} md={10} component={Paper} elevation={5} square>
 
                 <div className={classes.paper}>
                     {fetchProjects()}
