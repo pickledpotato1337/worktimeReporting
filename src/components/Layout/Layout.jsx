@@ -113,7 +113,7 @@ export default function Layout(props) {
                 </div>
                 <Divider />
                 <List>
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+                    {['Zgłoszenie', 'Dzienne sprawozdania', 'Projekty', 'Podsumowania', 'Zgłoś problem'].map((text, index) => (
                         <ListItem button key={text}>
                             <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
                             <ListItemText primary={text} />
@@ -121,14 +121,7 @@ export default function Layout(props) {
                     ))}
                 </List>
                 <Divider />
-                <List>
-                    {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
-                    ))}
-                </List>
+
             </Drawer>
             <main
                 className={clsx(classes.content, {

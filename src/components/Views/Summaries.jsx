@@ -54,11 +54,11 @@ const Summaries =(props) => {
     {
         if (props.user) {
 
-            axios.get('http://127.0.0.1:8000/user')
+            axios.get('http://127.0.0.1:8000/users')
                 .then(response => {
                     getUsers(response.data);
                     {
-                        users && users.map((user) => {
+                        users.map((user) => {
                                 hourCount=Number(0);
                                 const {id, username, email, groups} = user;
 
@@ -86,7 +86,7 @@ const Summaries =(props) => {
                 .then(response => {
                     getReports(response.data);
                     {
-                        reports && reports.map((report) => {
+                        reports.map((report) => {
 
                                 const {type, description, created, time, user} = report;
                                 let creationDate=new Date(created);
@@ -129,4 +129,4 @@ const mapStateToProps = (state) => ({
     user: state.auth.user,
 });
 
-export default withRouter(connect(mapStateToProps)(Summaries));
+export default connect(mapStateToProps)(Summaries);

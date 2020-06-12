@@ -92,7 +92,7 @@ const Home =(props) => {
     const submitHandler = (event) => {
         event.preventDefault();
         UpdateProject();
-        props.onSumbit(type, description, time);
+        axios.post('http://127.0.0.1:8000/reports', {type, description, time}).then(response =>console.log(response) );
     };
 
 

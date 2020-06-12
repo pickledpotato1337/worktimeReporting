@@ -207,6 +207,7 @@ const NavBar = (props) => {
                     <Button className={classes.registerButton} variant="outlined" color="primary" component={Link} to="/">Zgłoszenie</Button>
                     <Button className={classes.registerButton} variant="outlined" color="primary" component={Link} to="/reports">Codzienne spraw</Button>
                     <Button className={classes.registerButton} variant="outlined" color="primary" component={Link} to="/ticketReports">zgłoś problem</Button>
+                    <Button className={classes.registerButton} variant="outlined" color="primary" component={Link} to="/summaries">Podsumowania</Button>
                     <div className={classes.sectionDesktop}>
 
 

@@ -52,13 +52,13 @@ const Projects =(props) => {
     const [users, getUsers]=useState('');
 
     function fetchProjects() {
-        if (props.user) {
+
 
             axios.get('http://127.0.0.1:8000/projects')
                 .then(response => {
                     getProjects(response.data);
                     {
-                        projects && projects.map((project) => {
+                        projects.map((project) => {
                             const {id, name, budget, timePredicted, timeSpent} = project;
                             let timeElapsed = Number(timeSpent);
                             let moneySpent = timeElapsed * 14.00;
@@ -78,28 +78,22 @@ const Projects =(props) => {
                                     <Typography component="h3" variant="h5">
                                         Członkowie grupy</Typography>
 
-                                    {getUsers(name)}
+                                    {fetchUsers(name)}
                                 </div>);
                         });
                     }
 
                 });
-        }
-        else { return (
-            <div className={classes.paper} >
-                <Typography component="h2" variant="h5">
-                    Wylogowano</Typography></div>);
-        }
+
     }
     function fetchUsers(groupName)
     {
-        if (props.user) {
 
             axios.get('http://127.0.0.1:8000/user')
                 .then(response => {
                     getUsers(response.data);
                     {
-                        users && users.map((user) => {
+                        users.map((user) => {
                             const {id, username, email, groups} = user;
                             groups.map((group)=>{
                             if(groupName.equals(group)){
@@ -110,7 +104,7 @@ const Projects =(props) => {
                             })
                         }
                 });
-        }
+
     }
 
 

@@ -57,7 +57,7 @@ const DailyReports =(props) => {
                 .then(response => {
                     getUsers(response.data);
                     {
-                        users && users.map((user) => {
+                        users.map((user) => {
                                 hourCount = Number(0);
                                 const {id, username, email, groups} = user;
 
@@ -82,19 +82,21 @@ const DailyReports =(props) => {
     }
 
     function fetchReports(userId) {
-        if (props.user) {
+            let fullfilledFlag='false';
             axios.get('http://127.0.0.1:8000/reports/' + userId)
                 .then(response => {
                     getReports(response.data);
                     {
-                        reports && reports.map((report) => {
+                        reports.map((report) => {
 
                                 const {type, description, created, time, user} = report;
                                 let creationDate = new Date(created);
                                 let currentDate = new Date().getDay();
 
+
                                 if (creationDate.getMonth().equals(currentDate)) {
                                     hourCount += Number(time);
+                                    fullfilledFlag='true';
                                     return (
                                         <div className={'post'} key={type}>
                                             <h2>{type}</h2>
@@ -103,11 +105,16 @@ const DailyReports =(props) => {
 
                                         </div>);
                                 }
+                                else if(fullfilledFlag.equals('false')){
+                                    return(  <div className={'post'} key={type}>
+                                        <h3>Nie znaleziono raportów</h3>
+                                    </div>);
+                                }
                             }
                         )
                     }
                 })
-        }
+
     }
 
     return (
@@ -132,4 +139,4 @@ const mapStateToProps = (state) => ({
     user: state.auth.user,
 });
 
-export default withRouter(connect(mapStateToProps)(DailyReports));
+export default connect(mapStateToProps)(DailyReports);

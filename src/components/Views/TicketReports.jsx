@@ -49,18 +49,20 @@ const useStyles = makeStyles((theme) => ({
 const TicketReports =(props) => {
 
     const classes = useStyles();
-    let defaultStatus="http://127.0.0.1:8000/notification_statuses/3/"
+    let defaultStatus="http://127.0.0.1:8000/notification_statuses/3/";
     const [author, setAuthor]= useState('');
     const [description, setDescription]=useState('');
     const [status, setStatus]=useState('');
+    const [tickets, getTickets]=useState('');
     function handleSetAuthor(){setAuthor(props.user);}
     function handleSetStatus(){setStatus(defaultStatus);}
+
     const handleSetDescription=(event) =>{setDescription(event);};
     const submitHandler = (event) => {
         event.preventDefault();
         handleSetAuthor();
         handleSetStatus();
-        props.onSumbit(author, description, status);
+        axios.post('http://127.0.0.1:8000/reports',{author, description, status}).then(response =>console.log(response) );
     };
 
     return (
