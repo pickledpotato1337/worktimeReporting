@@ -44,7 +44,7 @@ const TicketReports =(props) => {
 
     const classes = useStyles();
     let defaultStatus="http://127.0.0.1:8000/notification_statuses/3/";
-    const [author, setAuthor]= useState('');
+    const [author, setAuthor]= useState('admin');
     const [description, setDescription]=useState('');
     const [status, setStatus]=useState('');
     const [tickets, getTickets]=useState('');
@@ -54,9 +54,9 @@ const TicketReports =(props) => {
     const handleSetDescription=(event) =>{setDescription(event.target.value);};
     const submitHandler = (event) => {
         event.preventDefault();
-        handleSetAuthor();
+
         handleSetStatus();
-        axios.post('http://127.0.0.1:8000/reports',{author, description, status}).then(response =>console.log(response) );
+        axios.post('http://127.0.0.1:8000/reports',{author, description, status}).then(response =>console.log(response).then(alert(console.log)) );
     };
 
     function fetchTickets(){

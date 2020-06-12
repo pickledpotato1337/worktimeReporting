@@ -81,7 +81,7 @@ const Home =(props) => {
                         const {id, name, budget, timePredicted, timeSpent} = project;
                         let timeElapsed = Number(timeSpent) + Number(time);
                         axios.put('http://127.0.0.1:8000/projects/'+type, { id, name, budget,timePredicted, timeElapsed })
-                            .then(response =>getResponse(response.data));
+                            .then(response =>getResponse(response.data).then(alert(response)));
 
                     }
                 })
