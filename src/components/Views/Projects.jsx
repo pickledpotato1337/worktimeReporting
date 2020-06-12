@@ -127,4 +127,4 @@ const Projects =(props) => {
         user: state.auth.user,
     });
 
-    export default withRouter(connect(mapStateToProps)(Projects));
+    export default connect(mapStateToProps)(Projects);

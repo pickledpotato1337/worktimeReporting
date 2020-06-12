@@ -112,4 +112,4 @@ const mapStateToProps = (state) => ({
     user: state.auth.user,
 });
 
-export default withRouter(connect(mapStateToProps)(TicketReports));
+export default connect(mapStateToProps)(TicketReports);
