@@ -28,11 +28,11 @@ class App extends Component {
               <Layout>
                 <Switch>
 
-                  <Route path="/" component={Home} />
-                  <Route path="projects" component={Projects} />
-                  <Route path="/summaries" component={Summaries} />
-                  <Route path="/reports" component={DailyReports} />
-                  <Route path="/tickets" component={TicketReports} />
+                  <Route exact path="/" component={Home} />
+                  <Route exact path="projects" component={withRouter(Projects)} />
+                  <Route exact path="/summaries" component={withRouter(Summaries)} />
+                  <Route exact path="/reports" component={withRouter(DailyReports)} />
+                  <Route exact path="/tickets" component={withRouter(TicketReports)} />
 
                 </Switch>
               </Layout>
