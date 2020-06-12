@@ -65,9 +65,9 @@ const Home =(props) => {
 
 
 
-    const handleSetType=(event) =>{setType(event);};
-    const handleSetDescription=(event) =>{setDescription(event);};
-    const handleSetTime=(event) =>{setTime(event);};
+    const handleSetType=(event) =>{setType(event.target.value);};
+    const handleSetDescription=(event) =>{setDescription(event.target.value);};
+    const handleSetTime=(event) =>{setTime(event.target.value);};
 
 
     function UpdateProject() {
@@ -109,11 +109,7 @@ const Home =(props) => {
             })}
 
 
-    function parseReportTypes(reportTypes){
-        return reportTypes.map((reportType)=>{
-            return {label: reportType.name};
-        });
-    }
+
     return (
         <Grid container component="main" className={classes.root}>
 

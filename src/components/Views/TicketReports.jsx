@@ -51,7 +51,7 @@ const TicketReports =(props) => {
     function handleSetAuthor(){setAuthor(props.user.name);}
     function handleSetStatus(){setStatus(defaultStatus);}
 
-    const handleSetDescription=(event) =>{setDescription(event);};
+    const handleSetDescription=(event) =>{setDescription(event.target.value);};
     const submitHandler = (event) => {
         event.preventDefault();
         handleSetAuthor();
